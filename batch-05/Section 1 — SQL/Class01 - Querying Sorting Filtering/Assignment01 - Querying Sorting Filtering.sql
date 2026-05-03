@@ -15,6 +15,10 @@
 
 -- Write your query below:
 
+SELECT first_name, last_name, city, phone
+FROM sales.customers
+WHERE state = 'CA'
+  AND phone IS NOT NULL;
 
 
 
@@ -27,6 +31,10 @@
 -- ============================================================
 
 -- Write your query below:
+
+SELECT product_id, product_name, model_year, list_price
+FROM production.products
+ORDER BY model_year DESC, list_price ASC;
 
 
 
@@ -42,10 +50,16 @@
 
 -- Part a:
 
+SELECT TOP 5 product_name, list_price
+FROM production.products
+ORDER BY list_price DESC;
 
 -- Part b:
 
-
+SELECT TOP 5 PERCENT *
+FROM production.products
+ORDER BY list_price ASC;
+-- 17 rows returned
 
 
 -- ============================================================
@@ -60,13 +74,27 @@
 
 -- Page 1:
 
+SELECT *
+FROM production.products
+ORDER BY list_price DESC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
 
 -- Page 2:
+
+SELECT *
+FROM production.products
+ORDER BY list_price DESC
+OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;
+
 
 
 -- Page 3:
 
-
+SELECT *
+FROM production.products
+ORDER BY list_price DESC
+OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
 
 
 -- ============================================================
@@ -82,12 +110,20 @@
 
 -- Part a:
 
+SELECT DISTINCT state
+FROM sales.customers
+ORDER BY state;
 
 -- Part b:
 
+SELECT DISTINCT state, city
+FROM sales.customers
+ORDER BY state ASC, city ASC;
 
 -- Part c:
 
+SELECT COUNT(DISTINCT model_year) AS unique_model_years
+FROM production.products;
 
 
 
@@ -103,3 +139,13 @@
 -- ============================================================
 
 -- Write your query below:
+
+SELECT product_id,
+       product_name,
+       brand_id,
+       category_id,
+       list_price
+FROM production.products
+WHERE list_price BETWEEN 500 AND 1500
+  AND (model_year = 2019 OR model_year = 2020)
+ORDER BY list_price ASC;
